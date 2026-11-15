@@ -1,0 +1,7 @@
+{
+  "bed_mm": [220.0, 220.0, 250.0],
+  "max_nozzle_c": 250.0,
+  "max_bed_c": 100.0,
+  "materials": ["PLA", "PETG"],
+  "max_minutes": 180.0
+}

@@ -1,0 +1,175 @@
+{
+  "attempts": [
+    {
+      "asks": "start_print on the twin with a chain you signed yourself, skipping the guard",
+      "at": 1794766301,
+      "attempt": "direct",
+      "chain_root": "ed25519:a0b7a02bffc15e5522f5384a34f01bb5228e2d5de897c1451899a217eb28f3fe",
+      "decided_by": "authorize_v3 at the printer.twin door",
+      "http": 403,
+      "job": "jobs/bracket-pla.gcode",
+      "n": 1,
+      "reason": "capability chain does not root at an accepted authority",
+      "rule": "issuer: only chains rooted at the printer owner, delegated through printer.guard",
+      "sent_to": "printer.twin",
+      "verdict": "refused"
+    },
+    {
+      "asks": "print a bracket with the hotend at 300 C",
+      "at": 1794766301,
+      "attempt": "over-temperature",
+      "checks": [
+        {
+          "detail": "1217 lines, 1162 moves, 40 layers",
+          "ok": true,
+          "rule": "gcode.lint"
+        },
+        {
+          "detail": "X 0..130 Y 0..120 Z 0..20 mm within 220 x 220 x 250 mm",
+          "ok": true,
+          "rule": "bed.bounds"
+        },
+        {
+          "detail": "hotend up to 300 C, max 250 C",
+          "ok": false,
+          "rule": "temp.nozzle"
+        },
+        {
+          "detail": "bed up to 60 C, max 100 C",
+          "ok": true,
+          "rule": "temp.bed"
+        },
+        {
+          "detail": "PLA, allowed: PLA, PETG",
+          "ok": true,
+          "rule": "material.allowlist"
+        },
+        {
+          "detail": "about 10.1 min, max 180 min",
+          "ok": true,
+          "rule": "time.max"
+        }
+      ],
+      "decided_by": "printer.guard",
+      "http": 200,
+      "job": "jobs/bracket-300c.gcode",
+      "n": 2,
+      "reason": "hotend up to 300 C, max 250 C",
+      "rule": "temp.nozzle",
+      "sent_to": "printer.guard",
+      "verdict": "refused"
+    },
+    {
+      "asks": "print the same bracket at 210 C nozzle, 60 C bed, PLA",
+      "at": 1794766301,
+      "attempt": "safe",
+      "checks": [
+        {
+          "detail": "1217 lines, 1162 moves, 40 layers",
+          "ok": true,
+          "rule": "gcode.lint"
+        },
+        {
+          "detail": "X 0..130 Y 0..120 Z 0..20 mm within 220 x 220 x 250 mm",
+          "ok": true,
+          "rule": "bed.bounds"
+        },
+        {
+          "detail": "hotend up to 210 C, max 250 C",
+          "ok": true,
+          "rule": "temp.nozzle"
+        },
+        {
+          "detail": "bed up to 60 C, max 100 C",
+          "ok": true,
+          "rule": "temp.bed"
+        },
+        {
+          "detail": "PLA, allowed: PLA, PETG",
+          "ok": true,
+          "rule": "material.allowlist"
+        },
+        {
+          "detail": "about 10.1 min, max 180 min",
+          "ok": true,
+          "rule": "time.max"
+        }
+      ],
+      "decided_by": "printer.guard (policy), then authorize_v3 at the printer.twin door",
+      "first_layer": {
+        "event": "layer",
+        "layer": 1,
+        "of": 40,
+        "progress": 0.1,
+        "z_mm": 0.25
+      },
+      "holder": "ed25519:f0d845ebc1db7ff992c689ceb5dcde762144c2400817fddc350737ea4601f6d7",
+      "http": 200,
+      "job": "jobs/bracket-pla.gcode",
+      "last_layer": {
+        "event": "layer",
+        "layer": 40,
+        "of": 40,
+        "progress": 1.0,
+        "z_mm": 10.0
+      },
+      "layers_streamed": 40,
+      "n": 3,
+      "rule": "every policy rule passed; the chain roots at the owner and allows this one job once",
+      "sent_to": "printer.guard",
+      "twin_final": {
+        "bed_c": 59.3,
+        "job": {
+          "bed_c": 60.0,
+          "by": "printer.twin-door",
+          "hours": 0.1682,
+          "name": "bracket",
+          "nozzle_c": 210.0,
+          "x_mm": 130.0,
+          "y_mm": 120.0,
+          "z_mm": 20.0
+        },
+        "nozzle_c": 206.3,
+        "progress": 1.0,
+        "state": "done"
+      },
+      "verdict": "printed"
+    },
+    {
+      "asks": "send the guard's forwarded call to the twin again, unchanged",
+      "at": 1794766301,
+      "attempt": "replay",
+      "decided_by": "authorize_v3 at the printer.twin door",
+      "http": 403,
+      "job": "jobs/bracket-pla.gcode",
+      "n": 4,
+      "reason": "this step already ran in this run",
+      "rule": "single-use: uses 1 per link, bound to this job's nonce",
+      "sent_to": "printer.twin",
+      "verdict": "refused"
+    }
+  ],
+  "cells": {
+    "gcode.lint": "http://127.0.0.1:7840/gcode.lint",
+    "printer.guard": "http://127.0.0.1:7840/printer.guard",
+    "printer.twin": "http://127.0.0.1:7840/printer.twin"
+  },
+  "demo": "demo-printer-guard",
+  "generated_at": 1794766301,
+  "policy": {
+    "bed_mm": [
+      220.0,
+      220.0,
+      250.0
+    ],
+    "materials": [
+      "PLA",
+      "PETG"
+    ],
+    "max_bed_c": 100.0,
+    "max_minutes": 180.0,
+    "max_nozzle_c": 250.0
+  },
+  "printer_node": "b6be04a0b23ec0670ce05c575614dd53d6828e73c8b2514f1e2d685ebda377de",
+  "printer_owner": "ed25519:fc6fc20ae6cccca1cffe540908eeb9e4e7c9fc1ade5fa42c5d38bc6c4bfdcaef"
+}

@@ -1,0 +1,16 @@
+[package]
+name = "twin-door"
+description = "The front door of printer.twin@1: authorize_v3, single-use burn log, then start the print on the unchanged twin and stream layers."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+wire = { path = "../wire" }
+ce-net-proto.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+hex.workspace = true

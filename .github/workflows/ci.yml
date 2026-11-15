@@ -1,0 +1,17 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Unit tests (lint, policy, the story against the door)
+        run: cargo test --release --workspace
+      - name: Four attempts from this fresh clone
+        run: ./scripts/try-all.sh fresh-report.json
+      - name: Same report as the committed one, timestamps aside
+        run: python3 scripts/compare-report.py proof/report.json fresh-report.json

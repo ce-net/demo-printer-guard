@@ -1,0 +1,11 @@
+[package]
+name = "gcode-lint"
+description = "gcode.lint@1: parse a G-code job into its extents, temperatures, material, layers and estimated time."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+serde.workspace = true

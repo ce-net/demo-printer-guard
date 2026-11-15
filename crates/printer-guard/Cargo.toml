@@ -1,0 +1,17 @@
+[package]
+name = "printer-guard"
+description = "printer.guard@1: hold a G-code job to a print policy and forward it as a single-use, nonce-bound call."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+gcode-lint = { path = "../gcode-lint" }
+twin-door = { path = "../twin-door" }
+ce-net-proto.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+hex.workspace = true

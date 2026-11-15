@@ -1,0 +1,11 @@
+[package]
+name = "wire"
+description = "Minimal HTTP/1.1 JSON and JSON-lines transport over std::net for local cells."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+serde_json.workspace = true
